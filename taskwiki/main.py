@@ -85,7 +85,7 @@ class SelectedTasks(object):
             print("No tasks selected.")
 
         self.taskopen_notes_folder = (
-            util.get_var("taskwiki_taskopen_notes_folder") or "~/tasknotes"
+            util.get_var("taskwiki_taskopen_notes_folder", default="~/tasknotes")
         )
 
         self.taskopen_notes_regex = (
