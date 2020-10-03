@@ -337,6 +337,7 @@ class TestViewportInspectionWithVisibleTag(MultiSyntaxIntegrationTest):
     Displayed tasks: 1
     Tasks to be added:
     Tasks to be deleted: tag work task
+    Expires: never
     """
 
     tasks = [
