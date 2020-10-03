@@ -151,3 +151,39 @@ class TestParsingVimwikiTask(object):
         assert port.defaults == {'project':'Home'}
         assert port.sort == DEFAULT_SORT_ORDER
         assert port.tw == 'default'
+
+    def test_vimwiki_link_in_header_simple(self, test_syntax):
+        if test_syntax[0] == 'default':
+            example_viewport = "HEADER2([[Test|https://www.vim.org]] | project:Home)"
+        elif test_syntax[0] == 'markdown':
+            example_viewport = "HEADER2([Test](https://www.vim.org) | project:Home)"
+
+        port = self.process_viewport(example_viewport, test_syntax)
+
+        assert port.taskfilter == list(DEFAULT_VIEWPORT_VIRTUAL_TAGS) + ["(", "project:Home", ")"]
+
+        if test_syntax[0] == 'default':
+            assert port.name == "[[Test|https://www.vim.org]]"
+        elif test_syntax[0] == 'markdown':
+            assert port.name == "[Test](https://www.vim.org)"
+
+        assert port.defaults == {'project':'Home'}
+        assert port.sort == DEFAULT_SORT_ORDER
+        assert port.tw == 'default'
+
+    def test_vimwiki_link_in_header_with_defaults(self, test_syntax):
+        if test_syntax[0] == 'default':
+            example_viewport = "HEADER2([[Test|https://www.vim.org]] | project:Home)"
+        elif test_syntax[0] == 'markdown':
+            example_viewport = "HEADER2([Test](https://www.vim.org) | project:Home)"
+
+        port = self.process_viewport(example_viewport, test_syntax)
+
+        assert port.taskfilter == list(DEFAULT_VIEWPORT_VIRTUAL_TAGS) + ["(", "project:Home", ")"]
+        if test_syntax[0] == 'default':
+            assert port.name == "[[Test|https://www.vim.org]]"
+        elif test_syntax[0] == 'markdown':
+            assert port.name == "[Test](https://www.vim.org)"
+        assert port.defaults == {'project':'Home'}
+        assert port.sort == DEFAULT_SORT_ORDER
+        assert port.tw == 'default'
